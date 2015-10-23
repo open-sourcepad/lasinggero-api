@@ -6,7 +6,7 @@ module Api::V1
     end
 
     def create
-      occasion = Occasion.new(occasion_params)
+      occasion = current_user.occasions.new(occasion_params)
       if occasion.save
         render json: occasion
       else
@@ -15,7 +15,7 @@ module Api::V1
     end
 
     def show
-      occasion = Occasion.find(params[:id])
+      occasion = current_user.occasions.find(params[:id])
       if occasion.present?
         render json: occasion
       else
@@ -26,7 +26,7 @@ module Api::V1
     protected
 
     def occasion_params
-      params.permit(:title, :location)
+      params.require(:occasion).permit(:title, :location)
     end
   end
 end
