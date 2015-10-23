@@ -2,6 +2,7 @@ module Api
   class BaseController < ApplicationController
     # include ApiVersions::SimplifyFormat
     include ActionController::MimeResponds
+    rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
     before_filter :cors_set_access_control_headers
     before_filter :cors_preflight_check
@@ -112,6 +113,22 @@ module Api
     def set_page_and_count
       @page = params[:page].present? ? params[:page] : 1
       @count = params[:count].present? ? params[:count] : 10
+    end
+
+    def render_error(status=404, msg="Not Found")
+      render json: { success: false, msg: "Not Found"}, status: status
+    end
+
+    def not_found
+      respond_to do |format|
+        render_error(404)
+      end
+    end
+
+    def render_obj_errors(obj)
+      render json: {
+        message: 'Validation failed', errors: (obj).errors.full_messages
+      }
     end
 
   end

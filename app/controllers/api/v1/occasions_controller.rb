@@ -10,7 +10,16 @@ module Api::V1
       if occasion.save
         render json: occasion
       else
-        render json: { success: false }, status: 401
+        render_error(401)
+      end
+    end
+
+    def show
+      occasion = Occasion.find(params[:id])
+      if occasion.present?
+        render json: occasion
+      else
+        render_error
       end
     end
 
