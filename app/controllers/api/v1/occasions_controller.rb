@@ -2,7 +2,7 @@ module Api::V1
   class OccasionsController < Api::BaseController
 
     def index
-      render json: { foo: 'bar' }
+      current_user.occasions
     end
 
     def create
