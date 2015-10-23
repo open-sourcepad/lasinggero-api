@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
   has_many :occasions, dependent: :destroy
   has_many :occasion_drinks, dependent: :destroy
   has_many :authentication_tokens, dependent: :destroy
+  has_many :drink_benchmarks, dependent: :destroy
 
   validates_presence_of :email
 

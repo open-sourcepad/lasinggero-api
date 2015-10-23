@@ -2,22 +2,34 @@ module Api::V1
   class DrinkBenchmarksController < Api::BaseController
 
     def index
-      current_user.drink_benchmarks
+      @benchmarks = current_user.drink_benchmarks
+      @drinks = Drink.all
     end
 
     def create
-      drink_benchmark = current_user.drink_benchmarks.new(benchmark_params)
-      if drink_benchmark.save
-        render json: drink_benchmark
+      created = []
+      benchmark_params[:drink_benchmarks].each do |benchmark|
+        created << current_user.drink_benchmarks.create(benchmark)
+      end
+      error = ""
+      created.each do |benchmark|
+        error << "#{benchmark.errors.full_messages} #{benchmark.drink_id}. " unless benchmark.errors.empty?
+      end
+
+      @error = error
+      if error.empty?
+        @benchmarks = current_user.drink_benchmarks
+        @success = true
       else
-        render_error(401)
+        @error = error
+        @success = false
       end
     end
 
     def show
       drink_benchmark = current_user.drink_benchmarks.find(params[:id])
       if drink_benchmark.present?
-        render json: drink_benchmark
+        drink_benchmark
       else
         render_error
       end
@@ -26,7 +38,7 @@ module Api::V1
     protected
 
     def benchmark_params
-      params.require(:drink_benchmarks).permit([:user, :drink, :quantity])
+      params.permit(drink_benchmarks: [:drink_id, :quantity])
     end
   end
 end
