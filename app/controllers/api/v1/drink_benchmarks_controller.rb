@@ -26,15 +26,6 @@ module Api::V1
       end
     end
 
-    def show
-      drink_benchmark = current_user.drink_benchmarks.find(params[:id])
-      if drink_benchmark.present?
-        drink_benchmark
-      else
-        render_error
-      end
-    end
-
     protected
 
     def benchmark_params

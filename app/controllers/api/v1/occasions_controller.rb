@@ -2,24 +2,21 @@ module Api::V1
   class OccasionsController < Api::BaseController
 
     def index
-      current_user.occasions
+      @collection = current_user.occasions
+      @success = true
     end
 
     def create
-      occasion = current_user.occasions.new(occasion_params)
-      if occasion.save
-        render json: occasion
-      else
-        render_error(401)
+      @obj = current_user.occasions.new(occasion_params)
+      unless @success = @obj.save
+        @error = @obj.errors.full_messages
       end
     end
 
     def show
-      occasion = current_user.occasions.find(params[:id])
-      if occasion.present?
-        render json: occasion
-      else
-        render_error
+      @obj = current_user.occasions.where(id: params[:id]).first
+      unless @success = @obj.present?
+        @error = ["Occasion not found"]
       end
     end
 
