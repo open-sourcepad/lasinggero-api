@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       end
 
       resources :occasions
+      resources :drinks
       resources :drink_benchmarks
     end
   end
