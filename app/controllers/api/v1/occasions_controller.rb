@@ -7,10 +7,19 @@ module Api::V1
     end
 
     def create
+      @current_drink = nil
       @obj = current_user.occasions.new(occasion_params)
       unless @success = @obj.save
         @error = @obj.errors.full_messages
       end
+    end
+
+    def occasion_drink
+      @obj = Occasion.find(params[:id])
+      drink = Drink.find(params[:drink_id])
+
+      @obj.occasion_drinks.create(user: current_user, drink: drink)
+      @obj
     end
 
     def show

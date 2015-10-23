@@ -39,5 +39,9 @@ class User < ActiveRecord::Base
   def self.find_by_username_or_email(sign_in)
     where("(LOWER(username) = :sign_in OR LOWER(email) = :sign_in)", sign_in: sign_in.downcase).first
   end
+
+  def max_benchmark
+    drink_benchmarks.inject(0) {|sum, b| sum + b.alcohol_unit_per_serving }
+  end
 end
 

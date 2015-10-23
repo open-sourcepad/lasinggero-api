@@ -15,4 +15,8 @@ class OccasionDrink < ActiveRecord::Base
   belongs_to :user
   belongs_to :drink
   belongs_to :ocassion
+
+  def alcohol_unit_per_serving
+    drink.alcohol_unit_per_serving
+  end
 end

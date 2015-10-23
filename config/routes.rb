@@ -13,7 +13,12 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :occasions
+      resources :occasions do
+        member do
+          post 'occasion_drink'
+        end
+      end
+
       resources :drinks
       resources :drink_benchmarks
     end
