@@ -15,6 +15,8 @@
 class Drink < ActiveRecord::Base
   belongs_to :category
 
+  has_many :occasion_drinks
+
   validates_presence_of :category_id
   validates_uniqueness_of :name
 
