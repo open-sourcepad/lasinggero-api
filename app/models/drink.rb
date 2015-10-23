@@ -13,4 +13,13 @@
 #
 
 class Drink < ActiveRecord::Base
+  belongs_to :category
+
+  def alcohol
+    alc_percent || category.alc_percent
+  end
+
+  def alcohol_unit_per_serving
+    (serving * (alcohol)) / 1000
+  end
 end
