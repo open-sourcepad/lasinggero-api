@@ -4,8 +4,8 @@
 #
 #  id                     :integer          not null, primary key
 #  name                   :string           default(""), not null
-#  weight                 :float            not null
-#  age                    :integer
+#  weight                 :float            default(0.0), not null
+#  age                    :integer          default(0), not null
 #  gender                 :integer
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null

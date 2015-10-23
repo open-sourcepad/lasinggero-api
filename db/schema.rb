@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151023053457) do
+ActiveRecord::Schema.define(version: 20151023082152) do
 
   create_table "authentication_tokens", force: :cascade do |t|
     t.string   "name"
@@ -25,9 +25,21 @@ ActiveRecord::Schema.define(version: 20151023053457) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.float    "alc_percent"
+  end
+
+  create_table "drink_benchmarks", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "drink_id"
+    t.integer  "quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "drink_benchmarks", ["drink_id"], name: "index_drink_benchmarks_on_drink_id"
+  add_index "drink_benchmarks", ["user_id"], name: "index_drink_benchmarks_on_user_id"
 
   create_table "drinks", force: :cascade do |t|
     t.string   "name"

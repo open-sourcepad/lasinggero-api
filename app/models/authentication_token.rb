@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: authentication_tokens
+#
+#  id           :integer          not null, primary key
+#  name         :string
+#  device_token :string
+#  user_id      :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#
+
 class AuthenticationToken < ActiveRecord::Base
   belongs_to :user
 
