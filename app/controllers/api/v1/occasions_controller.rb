@@ -19,7 +19,7 @@ module Api::V1
       @obj = Occasion.find(params[:id])
       @current_drink = Drink.find(params[:drink_id])
 
-      @obj.occasion_drinks.create(user: current_user, drink: drink)
+      @obj.occasion_drinks.create(user: current_user, drink: @current_drink)
       @obj
     end
 
