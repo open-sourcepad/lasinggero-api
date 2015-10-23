@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  string: 
+  belongs_to: 
+  alc_percent: 1.5
+  serving: 1.5
+
+two:
+  string: 
+  belongs_to: 
+  alc_percent: 1.5
+  serving: 1.5
