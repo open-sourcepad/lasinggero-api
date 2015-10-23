@@ -7,8 +7,9 @@ module Api::V1
     end
 
     def create
-      @current_drink = nil
       @obj = current_user.occasions.new(occasion_params)
+      @current_drink = Drink.all.first
+
       unless @success = @obj.save
         @error = @obj.errors.full_messages
       end
@@ -16,7 +17,7 @@ module Api::V1
 
     def occasion_drink
       @obj = Occasion.find(params[:id])
-      drink = Drink.find(params[:drink_id])
+      @current_drink = Drink.find(params[:drink_id])
 
       @obj.occasion_drinks.create(user: current_user, drink: drink)
       @obj
@@ -24,6 +25,8 @@ module Api::V1
 
     def show
       @obj = current_user.occasions.where(id: params[:id]).first
+      @current_drink = Drink.find(params[:drink_id])
+
       unless @success = @obj.present?
         @error = ["Occasion not found"]
       end

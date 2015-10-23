@@ -1,5 +1,5 @@
 module Api::V1
-  class Users::SessionsController < BaseController
+  class Users::SessionsController < ::Api::BaseController
 
     skip_before_action :authenticate_user_from_token!, only: :create
     before_filter :ensure_device_token_exists, only: :create

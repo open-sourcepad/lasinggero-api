@@ -35,7 +35,7 @@ class Occasion < ActiveRecord::Base
 
   def servings_left_until_max(user, current_drink = nil)
     if current_drink.present?
-      (alcohol_units_left / current_drink.alcohol_units_per_serving).floor
+      (alcohol_units_left(user) / current_drink.alcohol_unit_per_serving).floor
     else
       0
     end
