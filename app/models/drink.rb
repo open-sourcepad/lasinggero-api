@@ -16,6 +16,7 @@ class Drink < ActiveRecord::Base
   belongs_to :category
 
   validates_presence_of :category_id
+  validates_uniqueness_of :name
 
   def alcohol
     alc_percent || category.alc_percent
